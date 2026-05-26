@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Revisão de Copy — VECTIS Martial Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --border-color: rgba(255, 255, 255, 0.07);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --gold: #d4af37;
+            --gold-hover: #f3cf58;
+            --gold-glow: rgba(212, 175, 55, 0.15);
+            --green: #10b981;
+            --green-glow: rgba(16, 185, 129, 0.1);
+            --red: #ef4444;
+            --highlight: rgba(212, 175, 55, 0.25);
+            --font-title: 'Oswald', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            padding-bottom: 100px;
+        }
+
+        mark {
+            background-color: var(--highlight);
+            color: #fff;
+            padding: 0 4px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* HEADER */
+        header {
+            background-color: rgba(17, 24, 39, 0.8);
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 0;
+        }
+
+        .header__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .logo svg {
+            width: 32px;
+            height: 32px;
+            color: var(--gold);
+        }
+
+        .logo__text {
+            font-family: var(--font-title);
+            font-size: 20px;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .header__title {
+            font-family: var(--font-title);
+            font-size: 24px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header__title span {
+            color: var(--gold);
+        }
+
+        /* STATUS BADGE */
+        .progress-bar-container {
+            width: 180px;
+            background-color: rgba(255,255,255,0.05);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--green);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .status-panel {
+            text-align: right;
+        }
+
+        .status-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* WELCOME SECTION */
+        .welcome {
+            margin-top: 40px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--gold);
+            padding: 24px;
+            border-radius: 8px;
+        }
+
+        .welcome h1 {
+            font-family: var(--font-title);
+            font-size: 24px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+
+        .welcome p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+
+        .welcome p strong {
+            color: #fff;
+        }
+
+        .welcome-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        /* BUTTONS */
+        .btn {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            border-color: var(--text-secondary);
+            background-color: rgba(255,255,255,0.02);
+        }
+
+        .btn--gold {
+            background-color: var(--gold);
+            border-color: var(--gold);
+            color: #000;
+            font-weight: 600;
+        }
+
+        .btn--gold:hover {
+            background-color: var(--gold-hover);
+            border-color: var(--gold-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn--green {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .btn--green:hover {
+            background-color: var(--green);
+            color: #fff;
+        }
+
+        /* NAVIGATION TABS */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+            overflow-x: auto;
+            gap: 8px;
+            scrollbar-width: none;
+        }
+
+        .tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-family: var(--font-title);
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: #fff;
+        }
+
+        .tab-btn.active {
+            color: var(--gold);
+            border-bottom-color: var(--gold);
+        }
+
+        /* TAB PANELS */
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* COPY CARD */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card:hover {
+            border-color: rgba(255,255,255,0.12);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .card.is-approved {
+            border-color: var(--green);
+            box-shadow: 0 0 15px var(--green-glow);
+        }
+
+        .card.is-adjust {
+            border-color: var(--gold);
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        .card__meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card__location {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .card__tag {
+            font-size: 11px;
+            background-color: rgba(255,255,255,0.05);
+            padding: 2px 8px;
+            border-radius: 12px;
+            color: var(--text-secondary);
+        }
+
+        .card__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .card__grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+
+        .version-box {
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 6px;
+            padding: 16px;
+        }
+
+        .version-box__label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .version-box__content {
+            font-size: 15px;
+            color: #fff;
+            white-space: pre-wrap;
+        }
+
+        .version-box--br .version-box__label {
+            color: #3b82f6;
+        }
+
+        .version-box--pt .version-box__label {
+            color: var(--gold);
+        }
+
+        /* CONTROLS */
+        .card__controls {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .action-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .radio-btn {
+            display: none;
+        }
+
+        .btn-select {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: rgba(255,255,255,0.02);
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-select:hover {
+            color: #fff;
+            border-color: rgba(255,255,255,0.15);
+        }
+
+        /* States when checked */
+        .radio-approved:checked + .btn-select--approve {
+            background-color: rgba(16, 185, 129, 0.15);
+            border-color: var(--green);
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .radio-adjust:checked + .btn-select--adjust {
+            background-color: rgba(212, 175, 55, 0.15);
+            border-color: var(--gold);
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .adjust-input-wrap {
+            display: none;
+            width: 100%;
+        }
+
+        .adjust-input {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px;
+            padding: 12px;
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 14px;
+            resize: vertical;
+            min-height: 60px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .adjust-input:focus {
+            border-color: var(--gold);
+        }
+
+        .radio-adjust:checked ~ .adjust-input-wrap {
+            display: block;
+            animation: fadeIn 0.2s ease;
+        }
+
+        /* FLOATING ACTION BAR */
+        .floating-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(17, 24, 39, 0.9);
+            border-top: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
+            padding: 16px 0;
+            z-index: 100;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+        }
+
+        .floating-bar__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .floating-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal__content {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            max-width: 700px;
+            width: 100%;
+            border-radius: 8px;
+            padding: 32px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+        }
+
+        .modal__close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal__close:hover {
+            color: #fff;
+        }
+
+        .modal h2 {
+            font-family: var(--font-title);
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            color: var(--gold);
+        }
+
+        .modal p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .report-textarea {
+            width: 100%;
+            height: 250px;
+            background-color: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 6px;
+            padding: 16px;
+            color: #fff;
+            font-family: monospace;
+            font-size: 13px;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        .report-textarea:focus {
+            border-color: var(--gold);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            body {
+                background-color: #fff;
+                color: #000;
+                padding-bottom: 0;
+            }
+            header, .welcome, .tabs, .floating-bar, .card__controls, .card__meta .card__tag, .welcome-actions {
+                display: none !important;
+            }
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+            .card {
+                background: #fff;
+                color: #000;
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+                margin-bottom: 20px;
+                box-shadow: none !important;
+            }
+            .card__location {
+                color: #000;
+                border-bottom: 1px solid #ddd;
+                padding-bottom: 5px;
+            }
+            .version-box {
+                background: #f9f9f9;
+                border: 1px solid #eee;
+                color: #000;
+            }
+            .version-box__content {
+                color: #000;
+            }
+            mark {
+                background-color: #ffeb3b;
+                color: #000;
+                border-bottom: 1px dashed #000;
+            }
+            .print-header {
+                display: block !important;
+                margin-bottom: 30px;
+                border-bottom: 2px solid #000;
+                padding-bottom: 15px;
+            }
+            .print-header h1 {
+                font-family: var(--font-title);
+                font-size: 28px;
+                text-transform: uppercase;
+            }
+            .print-footer-signature {
+                display: block !important;
+                margin-top: 50px;
+                border-top: 1px solid #ccc;
+                padding-top: 15px;
+                text-align: center;
+                font-size: 14px;
+            }
+        }
+
+        .print-header, .print-footer-signature {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRINT HEADER -->
+    <div class="print-header">
+        <h1>Relatório de Revisão de Copy — VECTIS Academy</h1>
+        <p>Documento de conferência de textos. Lado a lado: Original (PT-BR) vs. Tradução/Adaptação proposta (PT-PT).</p>
+    </div>
+
+    <!-- ========== HEADER ========== -->
+    <header>
+        <div class="container header__inner">
+            <a href="index.html" class="logo">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 92 L62 68 L38 68 Z" fill="currentColor"/>
+                    <path d="M14 12 L38 60 L50 36 L26 12 Z" fill="currentColor"/>
+                    <path d="M86 12 L62 60 L50 36 L74 12 Z" fill="currentColor"/>
+                </svg>
+                <span class="logo__text">VECTIS</span>
+            </a>
+            <div class="header__title">
+                Revisão de <span>Copy</span>
+            </div>
+            <div class="status-panel">
+                <div class="status-text"><span id="approvedCount">0</span> de <span id="totalCount">0</span> Aprovados</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- ========== WELCOME SECTION ========== -->
+        <section class="welcome">
+            <h1>Prezado Cliente,</h1>
+            <p>
+                Para garantir a melhor experiência para os nossos alunos em Portugal, realizamos uma compilação de todas as copys do site e propomos ajustes finos de <strong>Português do Brasil (PT-BR)</strong> para o <strong>Português de Portugal (PT-PT)</strong>.
+            </p>
+            <p>
+                Por favor, revise os trechos abaixo divididos por páginas. Você pode marcar cada trecho como <strong>Aprovado</strong> ou selecionar <strong>Solicitar Ajuste</strong> para propor modificações. Ao final, clique em <strong>"Gerar Relatório"</strong> ou salve a página como PDF (Ctrl + P) para nos enviar.
+            </p>
+            <div class="welcome-actions">
+                <button class="btn btn--gold" onclick="approveAll()">Aprovar Todos Automaticamente</button>
+                <button class="btn" onclick="clearProgress()">Limpar Seleções</button>
+            </div>
+        </section>
+
+        <!-- ========== TABS ========== -->
+        <nav class="tabs">
+            <button class="tab-btn active" onclick="switchTab('tab-index', this)">Página Inicial (index)</button>
+            <button class="tab-btn" onclick="switchTab('tab-conduta', this)">Conduta (conduta)</button>
+            <button class="tab-btn" onclick="switchTab('tab-instrutores', this)">Instrutores (instrutores)</button>
+            <button class="tab-btn" onclick="switchTab('tab-sf', this)">Sócios Fundadores (sf)</button>
+        </nav>
+
+        <!-- ========== PANELS ========== -->
+        <main>
+            <!-- TAB: INDEX -->
+            <div id="tab-index" class="tab-panel active"></div>
+
+            <!-- TAB: CONDUTA -->
+            <div id="tab-conduta" class="tab-panel"></div>
+
+            <!-- TAB: INSTRUTORES -->
+            <div id="tab-instrutores" class="tab-panel"></div>
+
+            <!-- TAB: SOCIOS FUNDADORES -->
+            <div id="tab-sf" class="tab-panel"></div>
+        </main>
+
+    </div>
+
+    <!-- ========== FLOATING BOTTOM BAR ========== -->
+    <div class="floating-bar">
+        <div class="container floating-bar__inner">
+            <div class="floating-info">
+                <span class="status-text" style="font-size: 16px; color:#fff;">Status da Validação: <strong id="barPct">0%</strong> concluído</span>
+            </div>
+            <div style="display:flex; gap:12px;">
+                <button class="btn" onclick="window.print()">Imprimir / Salvar PDF</button>
+                <button class="btn btn--gold" onclick="generateReport()">Gerar Relatório</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== REPORT MODAL ========== -->
+    <div class="modal" id="reportModal">
+        <div class="modal__content">
+            <button class="modal__close" onclick="closeModal()">&times;</button>
+            <h2>Relatório de Validação</h2>
+            <p>Copie o relatório abaixo e envie para a equipa da Vectis Academy prosseguir com a implementação.</p>
+            <textarea class="report-textarea" id="reportText" readonly></textarea>
+            <div style="text-align: right; display:flex; justify-content:flex-end; gap:12px;">
+                <button class="btn" onclick="copyReport()">Copiar para Área de Transferência</button>
+                <button class="btn btn--gold" onclick="closeModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRINT FOOTER SIGNATURE -->
+    <div class="print-footer-signature">
+        <p>Validação finalizada por _________________________________________________ em ____/____/2026.</p>
+        <p>Assinatura do Cliente</p>
+    </div>
+
+    <!-- DATA & LOGIC -->
+    <script>
+        const copyData = [
+            // INDEX PAGE
+            {
+                id: "idx_menu",
+                page: "index",
+                location: "Cabeçalho / Menu de Navegação",
+                tag: "Navegação",
+                br: "Início\nAcademia\nAulas\nInstrutores\nConduta\nContato\nAula Experimental",
+                pt: "Início\nAcademia\nAulas\nInstrutores\nConduta\n<mark>Contacto</mark>\nAula Experimental"
+            },
+            {
+                id: "idx_hero_desc",
+                page: "index",
+                location: "Hero (Abertura)",
+                tag: "Descrição Principal",
+                br: "Aqui não é moda. É disciplina. Jiu-Jitsu Brasileiro de excelência, num espaço pensado para quem leva a evolução pessoal a sério.",
+                pt: "Aqui não é moda. É disciplina. Jiu-Jitsu Brasileiro de excelência, num espaço pensado para quem leva <mark>a sério a sua evolução pessoal</mark>."
+            },
+            {
+                id: "idx_hero_btn",
+                page: "index",
+                location: "Hero (Abertura)",
+                tag: "Botões de Chamada",
+                br: "Agendar Aula Experimental\nConheça a Academia",
+                pt: "Agendar Aula Experimental\n<mark>Conheça a academia</mark> (ou <mark>Descubra a Academia</mark>)"
+            },
+            {
+                id: "idx_manifesto",
+                page: "index",
+                location: "Manifesto",
+                tag: "Texto em Destaque",
+                br: "A Vectis não forma apenas atletas. Forma homens e mulheres de caráter, capazes de enfrentar o tatame e a vida.",
+                pt: "A Vectis não forma apenas atletas. Forma homens e mulheres de <mark>caráter</mark>, capazes de enfrentar o tatame e a vida."
+            },
+            {
+                id: "idx_pilar_3",
+                page: "index",
+                location: "Seção de Pilares",
+                tag: "Pilar 03 — Técnica",
+                br: "Técnica: Detalhe sobre força, Precisão sobre pressa, Arte suave.",
+                pt: "Técnica: <mark>O detalhe sobre a força, a precisão sobre a pressa. A arte suave.</mark>"
+            },
+            {
+                id: "idx_pilar_4",
+                page: "index",
+                location: "Seção de Pilares",
+                tag: "Pilar 04 — Caráter",
+                br: "Caráter: Forjado no tatame, levado para a vida. Esse é o resultado real.",
+                pt: "Caráter: Forjado no tatame, levado para a vida. <mark>Este</mark> é o resultado real."
+            },
+            {
+                id: "idx_missao",
+                page: "index",
+                location: "Seção Sobre / Essência",
+                tag: "Missão",
+                br: "Proporcionar o ensino do Jiu-Jitsu de excelência através de uma metodologia estruturada e inclusiva, fortalecendo o caráter, a disciplina e a saúde dos nossos alunos, conectando gerações através do elo inquebrável da arte suave.",
+                pt: "Proporcionar o ensino do Jiu-Jitsu de excelência através de uma metodologia estruturada e inclusiva, fortalecendo o <mark>caráter</mark>, a disciplina e a saúde dos nossos alunos, conectando gerações através do elo inquebrável da arte suave."
+            },
+            {
+                id: "idx_val_respeito",
+                page: "index",
+                location: "Seção de Princípios / Código Vectis",
+                tag: "Princípio 01 — Respeito",
+                br: "É a base de todo o elo. Começa no cumprimento ao entrar no tatame e estende-se ao cuidado com o parceiro de treino. Respeitar o tempo de aprendizagem de cada um e a hierarquia da arte, reconhecendo que todos têm algo a ensinar.",
+                pt: "É a base de <mark>todas as ligações</mark>. Começa na <mark>saudação</mark> ao entrar no tatame e estende-se ao cuidado com o parceiro de treino. Respeitar o tempo de aprendizagem de cada um e a hierarquia da arte, reconhecendo que todos têm algo a ensinar."
+            },
+            {
+                id: "idx_val_disciplina",
+                page: "index",
+                location: "Seção de Princípios / Código Vectis",
+                tag: "Princípio 02 — Disciplina (Correção)",
+                br: "O compromisso com a constância. No \"College\", a disciplina é o que transforma o aluno comum num mestre de si mesmo. É a capacidade de aparecer para treinar mesmo nos dias difíceis, mantendo o foco no estilo de vida saudável.",
+                pt: "O compromisso com a constância. Na <mark>Vectis</mark>, a disciplina é o que transforma o aluno comum num mestre de si mesmo. É a capacidade de aparecer para treinar mesmo nos dias difíceis, mantendo o foco no estilo de vida saudável."
+            },
+            {
+                id: "idx_val_autocontrolo",
+                page: "index",
+                location: "Seção de Princípios / Código Vectis",
+                tag: "Princípio 06 — Auto-controlo",
+                br: "O pilar fundamental da Defesa Pessoal. Mais importante do que saber finalizar, é saber quando não agir. É o domínio das emoções e da força, garantindo que a arte marcial seja uma ferramenta de paz e segurança, nunca de agressão gratuita.",
+                pt: "<mark>Autocontrolo</mark>: O pilar fundamental da Defesa Pessoal. Mais importante do que saber finalizar, é saber quando não agir. É o domínio das emoções e da força, garantindo que a arte marcial seja uma ferramenta de paz e segurança, nunca de agressão gratuita. (Em Portugal escreve-se sem hífen)."
+            },
+            {
+                id: "idx_val_humildade",
+                page: "index",
+                location: "Seção de Princípios / Código Vectis",
+                tag: "Princípio 08 — Humildade",
+                br: "Manter o espírito de eterno aprendiz. Mesmo o faixa preta mais graduado deve ter a humildade de um iniciante. É saber que o ego é o maior adversário e que a verdadeira grandeza reside na simplicidade e na vontade de ajudar o próximo a subir.",
+                pt: "Manter o espírito de eterno aprendiz. Mesmo o <mark>cinto negro</mark> mais graduado deve ter a humildade de um iniciante. É saber que o ego é o maior adversário e que a verdadeira grandeza reside na simplicidade e na vontade de ajudar o próximo a subir."
+            },
+            {
+                id: "idx_aula_adulto",
+                page: "index",
+                location: "Seção As Nossas Aulas",
+                tag: "Aulas para Adultos",
+                br: "Aulas para Adultos — Iniciantes & Avançados\n...\nMentoria direta com os professores",
+                pt: "Aulas para Adultos — Iniciantes & Avançados\n...\n<mark>Acompanhamento direto</mark> com os professores"
+            },
+            {
+                id: "idx_cta_text",
+                page: "index",
+                location: "Chamada para Ação (CTA)",
+                tag: "Banner Final",
+                br: "Comece sua jornada na Vectis Academy.\nA primeira aula é por nossa conta. Apresente-se. Pise no tatame. Sinta a diferença.",
+                pt: "<mark>Comece a sua</mark> jornada na Vectis Academy.\nA primeira aula é por nossa conta. Apresente-se. Pise no tatame. Sinta a diferença."
+            },
+            {
+                id: "idx_contato_info",
+                page: "index",
+                location: "Seção de Contato",
+                tag: "Informações",
+                br: "Localização (Santo Tirso, Portugal)\nTelefone (+351 XXX XXX XXX)\nEmail (contato@vectis.pt)\nHorário (Segunda a Sábado, 07h00 — 22h00)",
+                pt: "Localização (Santo Tirso, Portugal)\n<mark>Telemóvel / Telefone</mark> (+351 XXX XXX XXX)\nEmail (<mark>contacto</mark>@vectis.pt)\nHorário (Segunda a Sábado, 07h00 — 22h00)"
+            },
+            {
+                id: "idx_contato_form",
+                page: "index",
+                location: "Seção de Contato",
+                tag: "Formulário",
+                br: "Envie sua mensagem\nNome Completo\nEmail\nTelefone\nMensagem\nEnviar Mensagem",
+                pt: "Envie <mark>a sua</mark> mensagem\nNome Completo\nEmail\n<mark>Telemóvel</mark>\nMensagem\nEnviar Mensagem"
+            },
+
+            // CONDUTA PAGE
+            {
+                id: "cond_intro",
+                page: "conduta",
+                location: "Página Conduta — Introdução",
+                tag: "Texto Inicial",
+                br: "O Jiu-Jitsu é uma arte que exige proximidade, confiança e vulnerabilidade entre praticantes. Para que esse ambiente de aprendizagem funcione, todos os membros da Vectis — do primeiro dia ao faixa preta — assumem o compromisso de respeitar e fazer cumprir este código de conduta. Não são apenas regras, são os alicerces da nossa cultura.",
+                pt: "O Jiu-Jitsu é uma arte que exige proximidade, confiança e vulnerabilidade entre praticantes. Para que esse ambiente de aprendizagem funcione, todos os membros da Vectis — do primeiro dia ao <mark>cinto negro</mark> — assumem o compromisso de respeitar e fazer cumprir este código de conduta. Não são apenas regras, são os alicerces da nossa cultura."
+            },
+            {
+                id: "cond_r1",
+                page: "conduta",
+                location: "Página Conduta — Regras",
+                tag: "Regra 01 — Responsabilidade",
+                br: "Precisamos uns dos outros para evoluir, o trabalho em equipe é fundamental. As suas ações afetam todos ao seu redor e a academia, seja responsável e pense bem nas consequências dos seus atos antes de tomar decisões.\nConsistência no treino, respeito pelo tempo do instrutor e colegas, assumir os erros cometidos com humildade e vontade de melhorar.",
+                pt: "Precisamos uns dos outros para evoluir, o trabalho em <mark>equipa</mark> é fundamental. As suas ações afetam todos ao seu redor e a academia. Seja responsável e pense nas consequências dos seus atos antes de tomar decisões.\nConsistência no treino, respeito pelo tempo do instrutor e <mark>dos</mark> colegas, <mark>assumindo</mark> os erros cometidos com humildade e vontade de melhorar."
+            },
+            {
+                id: "cond_r2",
+                page: "conduta",
+                location: "Página Conduta — Regras",
+                tag: "Regra 02 — Respeito & Empatia",
+                br: "Numa equipe existirão sempre diferentes opiniões é normal não concordar a 100%. No entanto, isso não justifica qualquer comportamento desrespeitoso, frustrações não se transformam em ataques pessoais.\nSer incapaz de entender o ponto de vista de outra pessoa não significa que essa pessoa está errada, resolva divergências de forma construtiva. O respeito começa no cumprimento ao entrar no tatame e estende-se ao cuidado com o parceiro de treino.",
+                pt: "Numa <mark>equipa</mark> existirão sempre diferentes opiniões <mark>e</mark> é normal não concordar a 100%. No entanto, isso não justifica qualquer comportamento desrespeitoso; <mark>as</mark> frustrações não se <mark>devem transformar</mark> em ataques pessoais.\nSer incapaz de entender o ponto de vista de outra pessoa não significa que essa pessoa <mark>esteja</mark> errada. Resolva divergências de forma construtiva. O respeito começa na <mark>saudação</mark> ao entrar no tatame e estende-se ao cuidado com o parceiro de treino."
+            },
+            {
+                id: "cond_r3",
+                page: "conduta",
+                location: "Página Conduta — Regras",
+                tag: "Regra 03 — Pontualidade",
+                br: "Chegar na hora não é apenas um sinal de respeito para com o instrutor e os colegas de treino, é essencial para uma aula eficaz. O aquecimento e a parte técnica inicial são fundamentais para a segurança e progressão de todos.\nSe chegar tarde, espere junto ao tatame e peça autorização ao professor antes de entrar. Nunca interrompa uma aula em progresso sem aviso prévio.",
+                pt: "Chegar <mark>a horas</mark> não é apenas um sinal de respeito para com o instrutor e os colegas de treino, é essencial para uma aula eficaz. O aquecimento e a parte técnica inicial são fundamentais para a segurança e progressão de todos.\nSe chegar <mark>atrasado</mark>, <mark>aguarde</mark> junto ao tatame e peça autorização ao professor antes de entrar. Nunca interrompa uma aula em <mark>curso</mark>."
+            },
+            {
+                id: "cond_r4",
+                page: "conduta",
+                location: "Página Conduta — Regras",
+                tag: "Regra 04 — Foco no Tatame",
+                br: "O tatame é um local de treino e aprendizagem. Deixe telemóveis, distrações e conversas fora do tema na zona de descanso. Embora momentos de leveza sejam naturais, evite abordar assuntos de caráter político, religioso ou outros temas que dividam opiniões.\nRespeite o espaço, respeite quem está a treinar consigo, e entre no tatame com a intenção clara: aprender e evoluir.",
+                pt: "O tatame é um local de treino e aprendizagem. Deixe telemóveis, distrações e conversas fora do tema na zona de descanso. Embora momentos de <mark>descontração</mark> sejam naturais, evite abordar assuntos de caráter político, religioso ou outros temas <mark>fraturantes</mark>.\nRespeite o espaço, respeite quem treina consigo e entre no tatame com a intenção clara de aprender e evoluir."
+            },
+            {
+                id: "cond_r5",
+                page: "conduta",
+                location: "Página Conduta — Regras",
+                tag: "Regra 05 — Controlo do Ego",
+                br: "Para garantir o melhor ambiente de treino, todos têm de reconhecer as capacidades e limitações do colega de treino. Mantenha o ego sob controle e seja humilde tanto na vitória como na derrota.\nSe for apanhado tap, sorria, ajuste o kimono e tente novamente. Se apanhar alguém, respeite o tap, ajuste o kimono e tente novamente. A luta técnica é uma ferramenta de aprendizagem, não uma competição, persistir com força excessiva não é técnica é risco.",
+                pt: "Para garantir o melhor ambiente de treino, todos têm de reconhecer as capacidades e limitações do colega de treino. Mantenha o ego sob <mark>controlo</mark> e seja humilde tanto na vitória como na derrota.\nSe <mark>bater (tap)</mark>, sorria, ajuste o <mark>quimono</mark> e tente novamente. Se <mark>finalizar</mark> alguém, respeite o <mark>sinal de desistência (tap)</mark>, ajuste o <mark>quimono</mark> e tente novamente. A luta técnica é uma ferramenta de aprendizagem, não uma competição; persistir com força excessiva não é técnica, é risco."
+            },
+            {
+                id: "cond_r6",
+                page: "conduta",
+                location: "Página Conduta — Regras",
+                tag: "Regra 06 — Higiene",
+                br: "A higiene é inegociável para a saúde de todos na academia. O Jiu-Jitsu é uma arte onde os praticantes interagem em contato muito próximo a responsabilidade é coletiva.\n- Não pise o tatame com sapatos\n- Lave o kimono após cada aula (a faixa também!)\n- Tome banho antes de treinar\n- Mantenha unhas das mãos e pés cortadas\n- Cuide da higiene oral o mau hálito perturba o treino\n- Não treine se estiver doente ou com infeções de pele",
+                pt: "A higiene é inegociável para a saúde de todos na academia. O Jiu-Jitsu é uma arte onde os praticantes interagem em <mark>contacto</mark> muito próximo; <mark>a</mark> responsabilidade é coletiva.\n- Não pise o tatame <mark>calçado</mark>\n- Lave o <mark>quimono</mark> após cada aula (o <mark>cinto</mark> também!)\n- Tome banho antes de treinar\n- Mantenha as unhas das mãos e dos pés <mark>devidamente</mark> cortadas\n- Cuide da higiene oral: o mau hálito perturba o treino\n- Não treine se estiver doente ou com <mark>infeções na</mark> pele"
+            },
+            {
+                id: "cond_r7",
+                page: "conduta",
+                location: "Página Conduta — Regras",
+                tag: "Regra 07 — Equipamento",
+                br: "Vista-se de forma adequada à aula kimono para aulas de Gi, rashguard e calções/shorts para No-Gi. O equipamento deve estar sempre limpo e em bom estado.\n- Use sempre rashguard e lycra comprida por baixo do kimono\n- Roupa íntima adequada é obrigatória\n- Remova todas as joias antes de entrar no tatame\n- Equipamento rasgado ou danificado deve ser substituído",
+                pt: "Vista-se de forma adequada à aula: <mark>quimono</mark> para as aulas de Gi; rashguard e calções para No-Gi. O equipamento deve estar sempre limpo e em bom estado.\n- Use sempre rashguard e <mark>calça de licra</mark> por baixo do <mark>quimono</mark>\n- O uso de <mark>roupa interior</mark> adequada é obrigatório\n- <mark>Retire todos os adereços (joias, piercings, relógios)</mark> antes de entrar no tatame\n- O equipamento rasgado ou danificado deve ser substituído"
+            },
+            {
+                id: "cond_r8",
+                page: "conduta",
+                location: "Página Conduta — Regras",
+                tag: "Regra 08 — Segurança no Sparring",
+                br: "Perante uma finalização, reconheça quando chegou ao seu limite e tap. O seu colega não deve agir como se a sua vida dependesse da finalização. Se não tiver a certeza do que está a fazer pare. Seja sempre responsável pela sua segurança e pela dos outros.\nO sparring existe para aprender, não para ganhar. Adapte a intensidade ao nível do parceiro. Com iniciantes, seja um guia não um adversário.",
+                pt: "Perante uma finalização, reconheça quando chegou ao seu limite e <mark>bata (tap)</mark>. O seu <mark>parceiro de treino</mark> não deve agir como se a sua vida dependesse da finalização. Se não tiver a certeza do que está a fazer, pare. Seja sempre responsável pela sua segurança e pela dos outros.\nO sparring existe para aprender, não para ganhar. Adapte a intensidade ao nível do parceiro. Com iniciantes, seja um guia e não um adversário."
+            },
+            {
+                id: "cond_compromisso",
+                page: "conduta",
+                location: "Página Conduta — Compromisso",
+                tag: "Citação de Rodapé",
+                br: "Ao pisar no tatame da Vectis, cada praticante assume estas regras como suas.\nNão por obrigação — mas porque entende que uma academia forte começa em cada um de nós.\n— Mestre Helcio, Fundador da Vectis Academy",
+                pt: "Ao pisar <mark>o</mark> tatame da Vectis, cada praticante assume estas regras como suas.\nNão por obrigação, mas porque <mark>compreende</mark> que uma academia forte começa em cada um de nós.\n— Mestre Helcio, Fundador da Vectis Academy"
+            },
+
+            // INSTRUTORES PAGE
+            {
+                id: "inst_stmt",
+                page: "instrutores",
+                location: "Página Instrutores — Manifesto",
+                tag: "Filosofia de Ensino",
+                br: "Um bom instrutor não transfere apenas técnica transfere caráter.\nNa Vectis, ensinamos como gostaríamos de ter sido ensinados.",
+                pt: "Um bom instrutor não <mark>transmite</mark> apenas técnica, <mark>transmite caráter</mark>.\nNa Vectis, ensinamos como gostaríamos de ter sido ensinados."
+            },
+            {
+                id: "inst_helcio_role",
+                page: "instrutores",
+                location: "Página Instrutores — Helcio Vieira",
+                tag: "Função e Graduação",
+                br: "Fundador & Head Professor\nHelcio Vieira\nFaixa Preta · Jiu-Jitsu Brasileiro",
+                pt: "Fundador & <mark>Professor Principal</mark>\nHelcio Vieira\n<mark>Cinto Negro</mark> · Jiu-Jitsu Brasileiro"
+            },
+            {
+                id: "inst_helcio_bio",
+                page: "instrutores",
+                location: "Página Instrutores — Helcio Vieira",
+                tag: "Biografia",
+                br: "Praticante e estudioso do Jiu-Jitsu Brasileiro há mais de duas décadas, o Helcio construiu a sua carreira sobre os alicerces que hoje definem a Vectis: disciplina inabalável, técnica detalhada e um profundo compromisso com o desenvolvimento humano dos seus alunos.\nFormado por uma linhagem de professores de referência, traz para o tatame não apenas o conhecimento técnico, mas uma pedagogia que respeita o ritmo e a jornada individual de cada praticante do iniciante ao competidor de alto rendimento.\nA Vectis é o resultado desta visão: uma academia onde se entra como aluno e se sai como uma versão melhor de si mesmo.",
+                pt: "Praticante e estudioso do Jiu-Jitsu Brasileiro há mais de duas décadas, <mark>Helcio</mark> construiu a sua carreira sobre os alicerces que hoje definem a Vectis: disciplina inabalável, técnica detalhada e um profundo compromisso com o desenvolvimento humano dos seus alunos.\nFormado por uma linhagem de professores de referência, traz para o tatame não apenas o conhecimento técnico, mas uma pedagogia que respeita o ritmo e a jornada individual de cada praticante, do iniciante ao competidor de alto rendimento.\nA Vectis é o resultado desta visão: uma academia onde se entra como aluno e se sai como uma versão melhor de <mark>si próprio</mark>."
+            },
+            {
+                id: "inst_helcio_stats",
+                page: "instrutores",
+                location: "Página Instrutores — Helcio Vieira",
+                tag: "Estatísticas (Consistência)",
+                br: "12+ Anos de Prática\n∞ Evolução Contínua\n01 Missão: o teu caráter",
+                pt: "<mark>20+ Anos de Prática</mark> (Ajuste para alinhar com \"mais de duas décadas\" citado na bio)\n∞ Evolução Contínua\n01 Missão: o teu caráter"
+            },
+            {
+                id: "inst_helcio_certs",
+                page: "instrutores",
+                location: "Página Instrutores — Helcio Vieira",
+                tag: "Certificados",
+                br: "Faixa Preta de Brazilian Jiu-Jitsu\nInstrutor certificado de Defesa Pessoal",
+                pt: "<mark>Cinto Negro</mark> de Jiu-Jitsu Brasileiro\nInstrutor certificado de Defesa Pessoal"
+            },
+            {
+                id: "inst_staff_intro",
+                page: "instrutores",
+                location: "Página Instrutores — Staff",
+                tag: "Intro do Bloco",
+                br: "A Equipe. Staff Técnico. Cada membro da nossa equipe foi escolhido não apenas pela técnica, mas pelo caráter que demonstra dentro e fora do tatame.",
+                pt: "A <mark>Equipa</mark>. Staff Técnico. Cada membro da nossa <mark>equipa</mark> foi escolhido não apenas pela técnica, mas pelo caráter que demonstra dentro e fora do tatame."
+            },
+            {
+                id: "inst_pedro",
+                page: "instrutores",
+                location: "Página Instrutores — Pedro",
+                tag: "Instrutor Pedro",
+                br: "Prof. Pedro\nInstrutor Assistente · Adultos\nFaixa Roxa",
+                pt: "Prof. Pedro\nInstrutor Assistente · Adultos\n<mark>Cinto Roxo</mark>"
+            },
+            {
+                id: "inst_mariana",
+                page: "instrutores",
+                location: "Página Instrutores — Mariana",
+                tag: "Instrutora Mariana",
+                br: "Prof. Mariana\nInstrutora · Kids & Jovens\nFaixa Roxa",
+                pt: "Prof. Mariana\nInstrutora · Kids & Jovens\n<mark>Cinto Roxo</mark>"
+            },
+            {
+                id: "inst_ricardo",
+                page: "instrutores",
+                location: "Página Instrutores — Ricardo",
+                tag: "Instrutor Ricardo",
+                br: "Prof. Ricardo\nInstrutor · Alto Rendimento\nFaixa Castanha",
+                pt: "Prof. Ricardo\nInstrutor · Alto Rendimento\n<mark>Cinto Castanho</mark>"
+            },
+
+            // SOCIOS FUNDADORES PAGE
+            {
+                id: "sf_hero_sub",
+                page: "sf",
+                location: "Sócios Fundadores — Hero",
+                tag: "Subtítulo Principal",
+                br: "A Vectis está a nascer. Antes de abrirmos as portas, reservamos 50 lugares únicos para quem quer fazer parte da história.",
+                pt: "A Vectis está a nascer. Antes de abrirmos as portas, reservamos 50 lugares únicos para quem <mark>quer fazer parte da nossa história</mark>."
+            },
+            {
+                id: "sf_hero_btn",
+                page: "sf",
+                location: "Sócios Fundadores — Hero",
+                tag: "Botão de Chamada",
+                br: "Garantir Minha Vaga",
+                pt: "<mark>Garantir a Minha Vaga</mark> (ou <mark>Garantir Vaga</mark>)"
+            },
+            {
+                id: "sf_manifesto",
+                page: "sf",
+                location: "Sócios Fundadores — Manifesto",
+                tag: "Citação",
+                br: "\"A Vectis não nasce de um negócio. Nasce de uma convicção: que o tatame transforma vidas. E queremos que você faça parte disso desde o primeiro dia.\"",
+                pt: "\"A Vectis não nasce de um negócio. Nasce de uma convicção: <mark>a de</mark> que o tatame transforma vidas. E queremos que <mark>faça</mark> parte disso desde o primeiro dia.\" (Ajustado para evitar o pronome \"você\")"
+            },
+            {
+                id: "sf_b1_desc",
+                page: "sf",
+                location: "Sócios Fundadores — Benefícios",
+                tag: "Benefício 01 — Desconto",
+                br: "15% de Desconto Vitalício. Mensalidade reduzida em 15% para sempre — enquanto você for aluno da Vectis. Sem asteriscos.",
+                pt: "15% de Desconto Vitalício. Mensalidade reduzida em 15% para sempre — enquanto <mark>for</mark> aluno da Vectis. Sem asteriscos."
+            },
+            {
+                id: "sf_b2_desc",
+                page: "sf",
+                location: "Sócios Fundadores — Benefícios",
+                tag: "Benefício 02 — Distintivo",
+                br: "Badge \"Sócio Fundador\". Reconhecimento especial no kimono e na academia. O seu nome na história da Vectis.",
+                pt: "Badge \"Sócio Fundador\". Reconhecimento especial no <mark>quimono</mark> e na academia. O seu nome na história da Vectis."
+            },
+            {
+                id: "sf_b4_desc",
+                page: "sf",
+                location: "Sócios Fundadores — Benefícios",
+                tag: "Benefício 04 — Inauguração",
+                br: "Evento de Inauguração. Convite VIP para a noite de inauguração da Vectis. Um momento histórico, ao qual você pertence.",
+                pt: "Evento de Inauguração. Convite VIP para a noite de inauguração da Vectis. Um momento histórico, ao qual <mark>pertence</mark>."
+            },
+            {
+                id: "sf_b6_desc",
+                page: "sf",
+                location: "Sócios Fundadores — Benefícios",
+                tag: "Benefício 06 — Urgência",
+                br: "Apenas 50 Vagas. Esta campanha encerra assim que as 50 vagas forem preenchidas ou no prazo indicado — o que vier primeiro.",
+                pt: "Apenas 50 Vagas. Esta campanha encerra assim que as 50 vagas forem preenchidas ou no prazo indicado — o que <mark>ocorrer primeiro</mark>."
+            },
+            {
+                id: "sf_escassez",
+                page: "sf",
+                location: "Sócios Fundadores — Urgência",
+                tag: "Texto do Bloco de Urgência",
+                br: "Esta campanha não é um desconto de marketing. É um compromisso real com quem acredita no projeto. Quando as 50 vagas estiverem preenchidas, as condições de Sócio Fundador fecham para sempre.",
+                pt: "Esta campanha não é <mark>uma ação</mark> de marketing. É um compromisso real com quem acredita no projeto. Quando as 50 vagas estiverem preenchidas, as condições de Sócio Fundador fecham para sempre."
+            },
+            {
+                id: "sf_form_title",
+                page: "sf",
+                location: "Sócios Fundadores — Formulário",
+                tag: "Cabeçalho do Form",
+                br: "Reserve a Sua Vaga. Preencha o formulário abaixo. Entraremos em contato em até 24h para confirmar a sua inscrição.",
+                pt: "Reserve a <mark>sua</mark> vaga. Preencha o formulário abaixo. Entraremos em <mark>contacto num prazo de</mark> 24h para confirmar a sua inscrição."
+            },
+            {
+                id: "sf_form_disclaimer",
+                page: "sf",
+                location: "Sócios Fundadores — Formulário",
+                tag: "Termos do Envio",
+                br: "Ao submeter, concorda em ser contactado pela Vectis Martial Academy. Sem spam. Sem compromisso de pagamento nesta fase.",
+                pt: "Ao submeter, <mark>aceita</mark> ser contactado pela Vectis Martial Academy. Sem spam. Sem compromisso de pagamento nesta fase."
+            }
+        ];
+
+        // LOAD FROM LOCAL STORAGE IF EXISTS
+        let userChoices = JSON.parse(localStorage.getItem('vectis_copy_choices')) || {};
+
+        function renderCards() {
+            const groups = {
+                index: document.getElementById('tab-index'),
+                conduta: document.getElementById('tab-conduta'),
+                instrutores: document.getElementById('tab-instrutores'),
+                sf: document.getElementById('tab-sf')
+            };
+
+            // Clear panels
+            Object.keys(groups).forEach(key => groups[key].innerHTML = '');
+
+            copyData.forEach((item, index) => {
+                const choice = userChoices[item.id] || { status: null, notes: '' };
+                
+                const card = document.createElement('article');
+                card.className = `card ${choice.status === 'approved' ? 'is-approved' : ''} ${choice.status === 'adjust' ? 'is-adjust' : ''}`;
+                card.id = `card-${item.id}`;
+                
+                card.innerHTML = `
+                    <div class="card__meta">
+                        <span class="card__location">${item.location}</span>
+                        <span class="card__tag">${item.tag}</span>
+                    </div>
+                    
+                    <div class="card__grid">
+                        <div class="version-box version-box--br">
+                            <div class="version-box__label">
+                                <svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/></svg>
+                                Referência Português (BR)
+                            </div>
+                            <div class="version-box__content">${item.br}</div>
+                        </div>
+                        <div class="version-box version-box--pt">
+                            <div class="version-box__label">
+                                <svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/></svg>
+                                Sugestão Português (PT-PT)
+                            </div>
+                            <div class="version-box__content">${item.pt}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card__controls">
+                        <div class="action-row">
+                            <input type="radio" name="status-${item.id}" id="approve-${item.id}" class="radio-btn radio-approved" 
+                                   value="approved" ${choice.status === 'approved' ? 'checked' : ''} onchange="handleStatusChange('${item.id}', 'approved')">
+                            <label for="approve-${item.id}" class="btn-select btn-select--approve">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                                Aprovado
+                            </label>
+                            
+                            <input type="radio" name="status-${item.id}" id="adjust-${item.id}" class="radio-btn radio-adjust" 
+                                   value="adjust" ${choice.status === 'adjust' ? 'checked' : ''} onchange="handleStatusChange('${item.id}', 'adjust')">
+                            <label for="adjust-${item.id}" class="btn-select btn-select--adjust">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                                Ajustar Texto
+                            </label>
+                        </div>
+                        
+                        <div class="adjust-input-wrap">
+                            <textarea class="adjust-input" placeholder="Digite aqui o ajuste desejado para esta copy..." 
+                                      oninput="handleNotesChange('${item.id}', this.value)">${choice.notes || ''}</textarea>
+                        </div>
+                    </div>
+                `;
+                
+                groups[item.page].appendChild(card);
+            });
+
+            updateProgress();
+        }
+
+        function handleStatusChange(id, status) {
+            if (!userChoices[id]) userChoices[id] = { status: null, notes: '' };
+            userChoices[id].status = status;
+
+            const card = document.getElementById(`card-${id}`);
+            card.className = `card ${status === 'approved' ? 'is-approved' : ''} ${status === 'adjust' ? 'is-adjust' : ''}`;
+            
+            localStorage.setItem('vectis_copy_choices', JSON.stringify(userChoices));
+            updateProgress();
+        }
+
+        function handleNotesChange(id, text) {
+            if (!userChoices[id]) userChoices[id] = { status: null, notes: '' };
+            userChoices[id].notes = text;
+            localStorage.setItem('vectis_copy_choices', JSON.stringify(userChoices));
+        }
+
+        function updateProgress() {
+            const total = copyData.length;
+            const approved = Object.values(userChoices).filter(item => item.status === 'approved').length;
+            const adjusted = Object.values(userChoices).filter(item => item.status === 'adjust').length;
+            const completed = approved + adjusted;
+            
+            const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            document.getElementById('approvedCount').innerText = completed;
+            document.getElementById('totalCount').innerText = total;
+            document.getElementById('progressBar').style.width = `${pct}%`;
+            document.getElementById('barPct').innerText = `${pct}%`;
+        }
+
+        function approveAll() {
+            copyData.forEach(item => {
+                if (!userChoices[item.id]) userChoices[item.id] = { status: null, notes: '' };
+                userChoices[item.id].status = 'approved';
+            });
+            localStorage.setItem('vectis_copy_choices', JSON.stringify(userChoices));
+            renderCards();
+        }
+
+        function clearProgress() {
+            if (confirm("Tem certeza que deseja limpar todas as aprovações e ajustes feitos?")) {
+                userChoices = {};
+                localStorage.removeItem('vectis_copy_choices');
+                renderCards();
+            }
+        }
+
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            btn.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function generateReport() {
+            let report = "==================================================\n";
+            report += "  RELATÓRIO DE REVISÃO E VALIDAÇÃO DE COPY\n";
+            report += "  VECTIS MARTIAL ACADEMY — SANTO TIRSO\n";
+            report += "  Data: " + new Date().toLocaleDateString() + "\n";
+            report += "==================================================\n\n";
+
+            let approvedList = [];
+            let adjustList = [];
+            let pendingList = [];
+
+            copyData.forEach(item => {
+                const choice = userChoices[item.id];
+                if (!choice || choice.status === null) {
+                    pendingList.push(item);
+                } else if (choice.status === 'approved') {
+                    approvedList.push(item);
+                } else if (choice.status === 'adjust') {
+                    adjustList.push({ item, notes: choice.notes });
+                }
+            });
+
+            report += `RESUMO GERAL:\n`;
+            report += `- Total de trechos mapeados: ${copyData.length}\n`;
+            report += `- Trechos aprovados conforme sugestão: ${approvedList.length}\n`;
+            report += `- Trechos necessitando ajuste: ${adjustList.length}\n`;
+            report += `- Trechos pendentes de análise: ${pendingList.length}\n\n`;
+
+            if (adjustList.length > 0) {
+                report += "==================================================\n";
+                report += "  TRECHOS COM PEDIDO DE AJUSTE/ALTERAÇÃO\n";
+                report += "==================================================\n\n";
+                adjustList.forEach(({ item, notes }, index) => {
+                    report += `[${index + 1}] Localização: ${item.location} (${item.tag})\n`;
+                    report += `    Original (PT-BR): "${item.br.replace(/\n/g, ' / ')}"\n`;
+                    report += `    Proposta (PT-PT): "${item.pt.replace(/<mark>|<\/mark>/g, '')}"\n`;
+                    report += `    AJUSTE SOLICITADO: "${notes || '(Nenhuma observação descrita)'}"\n`;
+                    report += `--------------------------------------------------\n\n`;
+                });
+            }
+
+            if (approvedList.length > 0) {
+                report += "==================================================\n";
+                report += "  TRECHOS APROVADOS (SUGESTÃO PT-PT ACEITA)\n";
+                report += "==================================================\n\n";
+                approvedList.forEach((item, index) => {
+                    report += `- [Aprovado] ${item.location} -> ${item.tag}\n`;
+                });
+                report += "\n";
+            }
+
+            if (pendingList.length > 0) {
+                report += "==================================================\n";
+                report += "  TRECHOS PENDENTES (NÃO ANALISADOS)\n";
+                report += "==================================================\n\n";
+                pendingList.forEach(item => {
+                    report += `- [Pendente] ${item.location} -> ${item.tag}\n`;
+                });
+                report += "\n";
+            }
+
+            document.getElementById('reportText').value = report;
+            document.getElementById('reportModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('reportModal').classList.remove('active');
+        }
+
+        function copyReport() {
+            const textarea = document.getElementById('reportText');
+            textarea.select();
+            textarea.setSelectionRange(0, 99999);
+            document.execCommand('copy');
+            alert('Relatório copiado com sucesso! Você pode colá-lo em uma mensagem ou e-mail.');
+        }
+
+        // Initialize
+        renderCards();
+    </script>
+</body>
+</html>
