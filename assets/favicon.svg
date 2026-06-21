@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Brand dark background -->
+  <rect width="64" height="64" rx="14" fill="#2F2F2F"/>
+  <!-- Perfectly centered logo symbol -->
+  <g fill="#E6E1D9">
+    <path d="M32 50 L38 38 L26 38 Z" />
+    <path d="M17 14 L26 32 L32 20 L23 14 Z" />
+    <path d="M47 14 L38 32 L32 20 L41 14 Z" />
+  </g>
+</svg>

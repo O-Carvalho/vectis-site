@@ -505,6 +505,7 @@ h5 {
     height: 100%;
 }
 
+
 .emblem__triangle {
     transform-origin: center;
     animation: triangleGlow 4s ease-in-out infinite;
