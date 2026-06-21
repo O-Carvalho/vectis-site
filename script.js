@@ -74,8 +74,45 @@ const form = document.getElementById('contactForm');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.getElementById('name').value;
-    alert(`Obrigado, ${name}! A nossa equipa entrará em contato em breve.\n\nVECTIS — Disciplina. Técnica. Caráter.`);
-    form.reset();
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const message = document.getElementById('message').value;
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'A enviar...';
+
+    fetch('https://formsubmit.co/ajax/contacto@vectisbjj.pt', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            _subject: 'Nova Mensagem de Contacto - Vectis Academy',
+            Nome: name,
+            Email: email,
+            Telefone: phone,
+            Mensagem: message
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            alert(`Obrigado, ${name}! A nossa equipa entrará em contato em breve.\n\nVECTIS — Disciplina. Técnica. Caráter.`);
+            form.reset();
+        } else {
+            alert('Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente.');
+        }
+    })
+    .catch(error => {
+        console.error('Error submitting form:', error);
+        alert('Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente.');
+    })
+    .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+    });
 });
 
 // ===== Parallax suave no emblema =====

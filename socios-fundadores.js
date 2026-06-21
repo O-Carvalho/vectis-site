@@ -125,14 +125,46 @@ if (sfForm) {
         btn.disabled = true;
         btnText.textContent = 'A processar...';
 
-        // Simulação de envio (2s)
-        setTimeout(() => {
-            const nome = document.getElementById('sf-nome').value.split(' ')[0];
-            document.getElementById('sfSuccessName').textContent = nome;
-            sfForm.style.display = 'none';
-            sfSuccess.classList.add('visible');
-            sfForm.reset();
-        }, 2000);
+        const nome = document.getElementById('sf-nome').value;
+        const telefone = document.getElementById('sf-telefone').value;
+        const email = document.getElementById('sf-email').value;
+        const modalidade = document.getElementById('sf-modalidade').value;
+        const msg = document.getElementById('sf-msg').value;
+
+        fetch('https://formsubmit.co/ajax/contacto@vectisbjj.pt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                _subject: 'Nova Inscrição - Sócio Fundador - Vectis Academy',
+                Nome: nome,
+                Telefone: telefone,
+                Email: email,
+                Modalidade: modalidade,
+                Mensagem: msg
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                const firstName = nome.split(' ')[0];
+                document.getElementById('sfSuccessName').textContent = firstName;
+                sfForm.style.display = 'none';
+                sfSuccess.classList.add('visible');
+                sfForm.reset();
+            } else {
+                alert('Ocorreu um erro ao processar a inscrição. Por favor, tente novamente.');
+                btn.disabled = false;
+                btnText.textContent = 'Garantir Minha Vaga — Sócio Fundador';
+            }
+        })
+        .catch(error => {
+            console.error('Error submitting form:', error);
+            alert('Ocorreu um erro ao processar a inscrição. Por favor, tente novamente.');
+            btn.disabled = false;
+            btnText.textContent = 'Garantir Minha Vaga — Sócio Fundador';
+        });
     });
 }
 
